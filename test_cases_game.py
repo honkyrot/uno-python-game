@@ -458,7 +458,11 @@ def test_core_play_card_cpu1(core_module: UNO_Game) -> None:
     after they play a card from their hand, which should start with 7."""
     core_module.playing_player = core_module.player1
     core_module.play_card(core_module.player1, core_module.player1.hand[0])
-    assert len(core_module.playing_player.hand) == 6
+    assert len(core_module.playing_player.hand) == 6 or \
+           len(core_module.playing_player.hand) == 8 or \
+           len(core_module.playing_player.hand) == 10
+
+    # if dealer manages to plus 2 or 4 the player, they will have 8 or 10 cards.
 
 
 def test_core_new_deck(core_module: UNO_Game) -> None:
