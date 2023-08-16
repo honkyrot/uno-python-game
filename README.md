@@ -1,5 +1,7 @@
 # UNO game
 created in python
 
-joint collaboration with honkyrot and my class
-created with Python 3.11?
+This project was a joint collaboration with Honkyrot/myself and my software development class
+Created in Python 3.11.
+
+requires package Pytest for test cases to work
