@@ -67,7 +67,7 @@ input_string = """@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@######&@
 @@@@@@@@@@@@@@@@@@@@@@@%##################%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"""
 
 
-def bordered(text):
+def bordered(text) -> str:
     lines = text.splitlines()
     width = max(len(s) for s in lines)
     res = ['┌' + '─' * width + '┐']
@@ -77,7 +77,7 @@ def bordered(text):
     return '\n'.join(res)
 
 
-def y_n_response(input_message):
+def y_n_response(input_message) -> bool:
     """Returns True or False for y and n. This forces the user to only respond with y or n."""
     while True:
         user_input = input(input_message)

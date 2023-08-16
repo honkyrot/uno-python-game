@@ -9,7 +9,7 @@ test_cases_game.py version v1.2
 import pytest  # Import pytest, the test framework
 from UNO_AI_Module import AI_Module
 from UNO_Core import UNO_Game
-import UNO_Deck_Module as udm
+import UNO_Deck_Module as UDM
 
 """UNO_AI_Module.py Tests, for AI functions"""
 
@@ -17,20 +17,20 @@ import UNO_Deck_Module as udm
 @pytest.fixture()
 def ai_module() -> AI_Module:
     """Fixture"""
-    return AI_Module(udm.cpu1)
+    return AI_Module(UDM.cpu1)
 
 
 def test_AI_always_select_plus_four_wild(ai_module: AI_Module) -> None:
     """Always picks the +4 card with set hand."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("wild", "+4")]
+    local_deck = [UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("wild", "+4")]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -41,13 +41,13 @@ def test_AI_always_select_plus_4_wild_with_wild(ai_module: AI_Module) -> None:
     """Always picks the +4 card over the wild."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("wild", "wild"),
-                  udm.Card("wild", "+4")]
+    local_deck = [UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("wild", "+4")]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -58,13 +58,13 @@ def test_AI_always_select_wild(ai_module: AI_Module) -> None:
     """Always picks the wild."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("yellow", 4),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("wild", "wild"),
-                  udm.Card("red", 3)]
+    local_deck = [UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("yellow", 4),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("red", 3)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -75,13 +75,13 @@ def test_AI_select_blue_over_wild(ai_module: AI_Module) -> None:
     """Always picks the blue card over the wild."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("blue", 4),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("wild", "wild"),
-                  udm.Card("red", 3)]
+    local_deck = [UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("blue", 4),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("red", 3)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "blue"
@@ -92,13 +92,13 @@ def test_AI_select_blue_plus_two(ai_module: AI_Module) -> None:
     """Always picks the blue +2."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("blue", "+2"),
-                  udm.Card("green", 2),
-                  udm.Card("blue", 4),
-                  udm.Card("green", 2),
-                  udm.Card("green", 2),
-                  udm.Card("wild", "wild"),
-                  udm.Card("red", 3)]
+    local_deck = [UDM.Card("blue", "+2"),
+                  UDM.Card("green", 2),
+                  UDM.Card("blue", 4),
+                  UDM.Card("green", 2),
+                  UDM.Card("green", 2),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("red", 3)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "blue"
@@ -109,13 +109,13 @@ def test_AI_select_number_yellow_only(ai_module: AI_Module) -> None:
     """Always picks the yellow 7 card."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("blue", "+2"),
-                  udm.Card("green", 2),
-                  udm.Card("blue", 4),
-                  udm.Card("green", 2),
-                  udm.Card("yellow", 7),
-                  udm.Card("wild", "wild"),
-                  udm.Card("red", 3)]
+    local_deck = [UDM.Card("blue", "+2"),
+                  UDM.Card("green", 2),
+                  UDM.Card("blue", 4),
+                  UDM.Card("green", 2),
+                  UDM.Card("yellow", 7),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("red", 3)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "yellow"
@@ -126,13 +126,13 @@ def test_AI_select_skip_yellow_only(ai_module: AI_Module) -> None:
     """Always picks the yellow skip card."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("blue", "+2"),
-                  udm.Card("green", 2),
-                  udm.Card("yellow", "skip"),
-                  udm.Card("yellow", "reverse"),
-                  udm.Card("yellow", 7),
-                  udm.Card("wild", "wild"),
-                  udm.Card("red", 3)]
+    local_deck = [UDM.Card("blue", "+2"),
+                  UDM.Card("green", 2),
+                  UDM.Card("yellow", "skip"),
+                  UDM.Card("yellow", "reverse"),
+                  UDM.Card("yellow", 7),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("red", 3)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "yellow"
@@ -143,13 +143,13 @@ def test_AI_select_wild_plus_4_card_only(ai_module: AI_Module) -> None:
     """Always picks the wild +4 card even with wilds and actions."""
     ai_module.current_color = "red"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("blue", "+2"),
-                  udm.Card("green", 2),
-                  udm.Card("yellow", "skip"),
-                  udm.Card("wild", "wild"),
-                  udm.Card("yellow", 7),
-                  udm.Card("wild", "+4"),
-                  udm.Card("blue", 3)]
+    local_deck = [UDM.Card("blue", "+2"),
+                  UDM.Card("green", 2),
+                  UDM.Card("yellow", "skip"),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("yellow", 7),
+                  UDM.Card("wild", "+4"),
+                  UDM.Card("blue", 3)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -160,9 +160,9 @@ def test_AI_draw_card(ai_module: AI_Module) -> None:
     """Draws a card. 3 Cards"""
     ai_module.current_color = "red"  # Overwrite color
     ai_module.showing_number = 0
-    local_deck = [udm.Card("blue", "+2"),
-                  udm.Card("green", 2),
-                  udm.Card("yellow", "skip")]
+    local_deck = [UDM.Card("blue", "+2"),
+                  UDM.Card("green", 2),
+                  UDM.Card("yellow", "skip")]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card == "Draw card"
@@ -172,9 +172,9 @@ def test_AI_pick_same_number_different_color_card(ai_module: AI_Module) -> None:
     """Draws a card that's not the same color, BUT has the same number."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 4
-    local_deck = [udm.Card("blue", "+2"),
-                  udm.Card("green", 2),
-                  udm.Card("red", 4)]
+    local_deck = [UDM.Card("blue", "+2"),
+                  UDM.Card("green", 2),
+                  UDM.Card("red", 4)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "red"
@@ -185,11 +185,11 @@ def test_AI_pick_plus_four_over_wild(ai_module: AI_Module) -> None:
     """Picks a +4 over 1 wild with a deck of all wilds."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 4
-    local_deck = [udm.Card("wild", "+4"),
-                  udm.Card("wild", "+4"),
-                  udm.Card("wild", "+4"),
-                  udm.Card("wild", "wild"),
-                  udm.Card("wild", "+4")]
+    local_deck = [UDM.Card("wild", "+4"),
+                  UDM.Card("wild", "+4"),
+                  UDM.Card("wild", "+4"),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("wild", "+4")]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -200,14 +200,14 @@ def test_AI_pick_plus_four_over_wild_with_action(ai_module: AI_Module) -> None:
     """Picks a wild same color over a +4 with a deck of all wilds."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 4
-    local_deck = [udm.Card("wild", "+4"),
-                  udm.Card("wild", "+4"),
-                  udm.Card("wild", "+4"),
-                  udm.Card("yellow", "skip"),
-                  udm.Card("wild", "wild"),
-                  udm.Card("wild", "wild"),
-                  udm.Card("green", "reverse"),
-                  udm.Card("wild", "+4")]
+    local_deck = [UDM.Card("wild", "+4"),
+                  UDM.Card("wild", "+4"),
+                  UDM.Card("wild", "+4"),
+                  UDM.Card("yellow", "skip"),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("wild", "wild"),
+                  UDM.Card("green", "reverse"),
+                  UDM.Card("wild", "+4")]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "yellow"
@@ -218,8 +218,8 @@ def test_AI_picks_plus_four_on_action_discard(ai_module: AI_Module) -> None:
     """Picks a +4 when there is an action card on the discard pile."""
     ai_module.current_color = "green"  # Overwrite color
     ai_module.showing_number = "skip"  # action card
-    local_deck = [udm.Card("wild", "+4"),
-                  udm.Card("wild", "wild")]
+    local_deck = [UDM.Card("wild", "+4"),
+                  UDM.Card("wild", "wild")]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -230,8 +230,8 @@ def test_AI_picks_color_card_on_action_discard(ai_module: AI_Module) -> None:
     """Picks a +2 same-color action when there is an action card on the discard pile."""
     ai_module.current_color = "green"  # Overwrite color
     ai_module.showing_number = "skip"  # action card
-    local_deck = [udm.Card("green", "+2"),
-                  udm.Card("green", 6)]
+    local_deck = [UDM.Card("green", "+2"),
+                  UDM.Card("green", 6)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "green"
@@ -242,8 +242,8 @@ def test_AI_picks_wild_over_same_number_card(ai_module: AI_Module) -> None:
     """Picks a wild over same numbered card"""
     ai_module.current_color = "green"  # Overwrite color
     ai_module.showing_number = 5  # action card
-    local_deck = [udm.Card("wild", "wild"),
-                  udm.Card("blue", 5)]
+    local_deck = [UDM.Card("wild", "wild"),
+                  UDM.Card("blue", 5)]
     ai_module.ai_hand = local_deck
     selected_card = ai_module.make_choice()
     assert selected_card["color"] == "wild"
@@ -254,75 +254,75 @@ def test_AI_picks_wild_over_same_number_card(ai_module: AI_Module) -> None:
 
 
 @pytest.fixture
-def deck_module() -> udm.UNO_Deck_Module:
+def deck_module() -> UDM:
     """Fixture for the deck module."""
-    udm.deck.clear()
-    return udm
+    UDM.deck.clear()
+    return UDM
 
 
-def test_deck_should_have_108_cards(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_should_have_108_cards(deck_module: UDM) -> None:
     """The deck should have 108 cards."""
     deck_module.create_deck()
     assert len(deck_module.deck) == 108
 
 
-def test_deck_cpu_should_have_7_cards(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_cpu_should_have_7_cards(deck_module: UDM) -> None:
     """CPU should have 7 cards."""
     deck_module.create_deck()
-    local_cpu = udm.CPU1()
+    local_cpu = UDM.CPU1()
     local_cpu.create_hand()
     assert len(local_cpu.hand) == 7
 
 
-def test_deck_should_have_80_cards_after_dealing(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_should_have_80_cards_after_dealing(deck_module: UDM) -> None:
     """The deck should have 80 cards after dealing."""
     deck_module.create_deck()
-    local_cpu1 = udm.CPU1()
+    local_cpu1 = UDM.CPU1()
     local_cpu1.create_hand()
-    local_cpu2 = udm.CPU2()
+    local_cpu2 = UDM.CPU2()
     local_cpu2.create_hand()
-    local_cpu3 = udm.CPU3()
+    local_cpu3 = UDM.CPU3()
     local_cpu3.create_hand()
-    local_p1 = udm.Player()
+    local_p1 = UDM.Player()
     local_p1.create_hand()
     assert len(deck_module.deck) == 80
 
 
-def test_deck_pass_4_cards_to_cpu(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_pass_4_cards_to_cpu(deck_module: UDM) -> None:
     """Pass 4 cards to CPU. Deck should have 97 (108-7-4) cards."""
     deck_module.create_deck()
-    local_cpu = udm.CPU1()
+    local_cpu = UDM.CPU1()
     local_cpu.create_hand()
     deck_module.draw_cards(local_cpu, 4)
     assert len(local_cpu.hand) == 11
     assert len(deck_module.deck) == 97
 
 
-def test_deck_pass_40_cards_to_cpu(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_pass_40_cards_to_cpu(deck_module: UDM) -> None:
     """Pass 40 cards to CPU, large volume test. Deck should have 97 (108-7-40) cards."""
     deck_module.create_deck()
-    local_cpu = udm.CPU1()
+    local_cpu = UDM.CPU1()
     local_cpu.create_hand()
     deck_module.draw_cards(local_cpu, 40)
     assert len(local_cpu.hand) == 47
     assert len(deck_module.deck) == 61
 
 
-def test_deck_create_two_decks(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_create_two_decks(deck_module: UDM) -> None:
     """Create 2 decks. Should have 216 cards."""
     deck_module.create_deck()
     deck_module.create_deck()
     assert len(deck_module.deck) == 216
 
 
-def test_deck_create_x10_decks(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_create_x10_decks(deck_module: UDM) -> None:
     """Create x10 decks. Should have 1080 cards."""
     for i in range(10):
         deck_module.create_deck()
     assert len(deck_module.deck) == 1080
 
 
-def test_deck_create_x100_decks(deck_module: udm.UNO_Deck_Module) -> None:
+def test_deck_create_x100_decks(deck_module: UDM) -> None:
     """Create x100 decks. Should have 10800 cards."""
     for i in range(100):
         deck_module.create_deck()
@@ -335,7 +335,7 @@ def test_deck_create_x100_decks(deck_module: udm.UNO_Deck_Module) -> None:
 @pytest.fixture
 def core_module() -> UNO_Game:
     """Fixture for the core module."""
-    udm.deck.clear()
+    UDM.deck.clear()
     return UNO_Game()
 
 
@@ -399,25 +399,25 @@ def test_core_return_assignment_cpu2_loopback(core_module: UNO_Game) -> None:
 
 def test_core_if_card_can_be_played_card_true(core_module: UNO_Game) -> None:
     """Checks if a card can be played. Should return True"""
-    synthetic_card = udm.Card("blue", 5)
+    synthetic_card = UDM.Card("blue", 5)
     core_module.current_card = synthetic_card
-    matching_card = udm.Card("blue", 8)
+    matching_card = UDM.Card("blue", 8)
     assert core_module.check_if_card_can_be_played(matching_card) is True
 
 
 def test_core_if_card_can_be_played_card_false(core_module: UNO_Game) -> None:
     """Checks if a card can be played. Should return False"""
-    synthetic_card = udm.Card("blue", 2)
+    synthetic_card = UDM.Card("blue", 2)
     core_module.current_card = synthetic_card
-    matching_card = udm.Card("yellow", 8)
+    matching_card = UDM.Card("yellow", 8)
     assert core_module.check_if_card_can_be_played(matching_card) is False
 
 
 def test_core_card_can_be_played_card_true_wild(core_module: UNO_Game) -> None:
     """Checks if a card can be played. Wilds should ALWAYS return True"""
-    synthetic_card = udm.Card("red", "+2")
+    synthetic_card = UDM.Card("red", "+2")
     core_module.current_card = synthetic_card
-    matching_card = udm.Card("wild", "wild")
+    matching_card = UDM.Card("wild", "wild")
     assert core_module.check_if_card_can_be_played(matching_card) is True
 
 

@@ -10,49 +10,73 @@ wild_values = ["wild", "+4"]
 deck = []
 discard_pile = []
 
-class BasePlayer:
+
+class Player:
     score = 0
-    user_name = "BasePlayer"
-    print_string = "BasePlayer's Hand:"
-    hand = []
-    
-    
-    def __str__(self) -> str:
-        return self.user_name
-    
-    def create_hand(self) -> None:
+    user_name = "player"
+
+    def __init__(self):
+        self.hand = []
+
+    def create_hand(self):
         draw_cards(self, 7)
-    
-    def print_hand(self) -> None:
-        print(self.print_string)
-        for card in self.hand:
-            print(f"{card.color.title()} {card.value}")
+
+    def print_hand(self):
+        print("Your Hand:")
+        for card in range(len(self.hand)):
+            print(f"{self.hand[card].color.title()} {self.hand[card].value}")
         print("\t")
 
-#individual subclasses that inherit from the base class and only have to change user_name    
 
-class Player(BasePlayer):
-    user_name = "Player"
-    print_string = "Your Hand:"
+class CPU1:
+    score = 0
+    user_name = "CPU_1"
 
+    def __init__(self):
+        self.hand = []
 
-class CPU1(BasePlayer):
-    user_name = "CPU1"
-    print_string = "CPU1's Hand:"
-    
-    def __str__(self) -> str:
-        return super().__str__()
+    def create_hand(self):
+        draw_cards(self, 7)
 
-class CPU2(BasePlayer):
-    user_name = "CPU2"
-    print_string = "CPU2's Hand:"
-
-class CPU3(BasePlayer):
-    user_name = "CPU3"
-    print_string = "CPU3's Hand:"
+    def print_hand(self):
+        print("CPU1's Hand:")
+        for card in range(len(self.hand)):
+            print(f"{self.hand[card].color.title()} {self.hand[card].value}")
+        print("\t")
 
 
+class CPU2:
+    score = 0
+    user_name = "CPU_2"
 
+    def __init__(self):
+        self.hand = []
+
+    def create_hand(self):
+        draw_cards(self, 7)
+
+    def print_hand(self):
+        print("CPU2's Hand:")
+        for card in range(len(self.hand)):
+            print(f"{self.hand[card].color.title()} {self.hand[card].value}")
+        print("\t")
+
+
+class CPU3:
+    score = 0
+    user_name = "CPU_3"
+
+    def __init__(self):
+        self.hand = []
+
+    def create_hand(self):
+        draw_cards(self, 7)
+
+    def print_hand(self):
+        print("CPU3's Hand:")
+        for card in range(len(self.hand)):
+            print(f"{self.hand[card].color.title()} {self.hand[card].value}")
+        print("\t")
 
 
 class Card:

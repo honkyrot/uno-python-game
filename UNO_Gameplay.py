@@ -16,17 +16,17 @@ time_delay = 1
 class Card:
     """Creates a dummy card to convert dictionary to object."""
 
-    def __init__(self, color, value):
+    def __init__(self, color, value) -> None:
         self.color = color
         self.value = value
 
 
-def clamp(num, min_value, max_value):
+def clamp(num: int, min_value: int, max_value: int) -> int:
     """Clamps a number between a minimum and maximum value."""
     return max(min(num, max_value), min_value)
 
 
-def y_n_response(input_message):
+def y_n_response(input_message: str) -> bool:
     """Returns True or False for y and n. This forces the user to only respond with y or n."""
     while True:
         user_input = input(input_message)
@@ -38,7 +38,7 @@ def y_n_response(input_message):
             print("Please enter either y or n!")
 
 
-def forced_number_response_custom(input_message, max_number):
+def forced_number_response_custom(input_message, max_number) -> int:
     """Returns a number from the user. This forces the user to only respond with a number.
     With the maximum number being the amount of cards in hand.
     Exceptions are made for the user to type in 's' to sort, etc."""
@@ -77,14 +77,10 @@ if play_uno_start:  # Start game here, if user wants to play.
         time.sleep(time_delay)
         while not uno_game.game_ended:
             uno_game.overall_turn += 1
-            if uno_game.clockwise:
-                uno_game.current_turn += 1  # Increment turn counter
-            else:
-                uno_game.current_turn -= 1  # Decrement turn counter
             print(f"Turn {uno_game.overall_turn}")
-            time.sleep(time_delay/3)
+            time.sleep(time_delay / 3)
             uno_game.display_last_card_up()
-            time.sleep(time_delay/3)
+            time.sleep(time_delay / 3)
             current_turn = abs((uno_game.current_turn - 1) % 4)  # Get current turn assigned to player
             if current_turn == 0:  # If its player's turn.
                 print(f"It is your turn!")
@@ -93,12 +89,13 @@ if play_uno_start:  # Start game here, if user wants to play.
                 while not has_selected_card:
                     uno_game.playing_player = uno_game.player0
                     uno_game.display_game_status()
-                    time.sleep(time_delay/3)
+                    time.sleep(time_delay / 3)
                     print(f"Your current hand: ")
                     uno_game.display_your_player_hand()
-                    player_response = forced_number_response_custom("Please enter the number of the card you want to play.\n"
-                                                                    "Type [0] to draw a card!\n>",
-                                                                    len(uno_game.player0.hand))
+                    player_response = forced_number_response_custom(
+                        "Please enter the number of the card you want to play.\n"
+                        "Type [0] to draw a card!\n>",
+                        len(uno_game.player0.hand))
                     if player_response == 0:  # If player wants to draw a card.
                         uno_game.draw_card(uno_game.player0, 1)
                         if uno_game.player0.hand[-1].value == "wild":
@@ -126,7 +123,7 @@ if play_uno_start:  # Start game here, if user wants to play.
                             print("You can't play that card!")
                             uno_game.display_last_card_up()
                             continue
-                    time.sleep(time_delay/2)
+                    time.sleep(time_delay / 2)
             elif current_turn != 0:  # CPUs turn
                 uno_game.playing_player = None
                 if current_turn == 1:
@@ -155,14 +152,14 @@ if play_uno_start:  # Start game here, if user wants to play.
                     if card_check:
                         uno_game.play_card(uno_game.playing_player, converted_card)
                         if len(uno_game.playing_player.hand) == 1:
-                            time.sleep(time_delay/2)
+                            time.sleep(time_delay / 2)
                             rng_chance = random.randint(1, 100)
                             if rng_chance > 90:  # If above 90, fail to call uno.
                                 uno_game.draw_card(uno_game.playing_player, 2)
                                 print(f"{uno_game.playing_player.user_name} forgot to call UNO!")
                             else:
                                 print(f"{uno_game.playing_player.user_name} called UNO!")
-                            time.sleep(time_delay/2)
+                            time.sleep(time_delay / 2)
                     else:
                         print("ERROR: AI card can't be played! Possible bug in AI_Module!",
                               "Drawing card to prevent game from crashing...")
@@ -173,8 +170,12 @@ if play_uno_start:  # Start game here, if user wants to play.
                     uno_game.draw_card(uno_game.playing_player)
             print("\nNext turn!\n")
             wait = input("Press enter to continue...")
-            time.sleep(time_delay/2)  # Wait x seconds before next turn.
+            time.sleep(time_delay / 2)  # Wait x seconds before next turn.
             uno_game.next_turn()
+            if uno_game.clockwise:  # moved turn counter
+                uno_game.current_turn += 1  # Increment turn counter
+            else:
+                uno_game.current_turn -= 1  # Decrement turn counter
             game_active = not uno_game.game_ended
         print("Game ended.")
         print(f"Game lasted {uno_game.overall_turn} turns.")

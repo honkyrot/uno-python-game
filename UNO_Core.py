@@ -65,7 +65,7 @@ class UNO_Game:
         # print(f"returning: {new_number}\n")
         return new_number
 
-    def return_assignment(self, number: int) -> UNO_Deck.BasePlayer:
+    def return_assignment(self, number: int) -> UNO_Deck.Player:
         """Returns CPU or Player object on current number; a dirty way to do it."""
         # print(f"\n returning player assignment: {number}\n")
         if number == 0:
@@ -126,7 +126,7 @@ class UNO_Game:
             return True
         return False
 
-    def check_for_action(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def check_for_action(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Check if the card is an action card, if it is play the function
         If not play the card regularly."""
         if card.value == "skip":
@@ -142,7 +142,7 @@ class UNO_Game:
         else:
             self.play_regular_card(player, card)
 
-    def discard_played_card(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card, discard: bool = True) -> None:
+    def discard_played_card(self, player: UNO_Deck.Player, card: UNO_Deck.Card, discard: bool = True) -> None:
         """Discards a card from the player's hand."""
         self.current_card = card
         self.current_color = card.color
@@ -164,7 +164,7 @@ class UNO_Game:
         self.deck = UNO_Deck.deck
         random.shuffle(self.deck)
 
-    def refill_deck(self, player: UNO_Deck.BasePlayer, remaining_amount: int) -> None:
+    def refill_deck(self, player: UNO_Deck.Player, remaining_amount: int) -> None:
         """Refills deck from discard pile.
         If somehow all the cards are in play and no more cards can be shuffled in,
         add a new deck of cards to be played."""
@@ -180,7 +180,7 @@ class UNO_Game:
             self.new_deck()
             self.draw_card(player, remaining_amount)
 
-    def draw_card(self, player: UNO_Deck.BasePlayer, amount: int = 1) -> None:
+    def draw_card(self, player: UNO_Deck.Player, amount: int = 1) -> None:
         """Draws a card from the deck and adds it to the player's hand."""
         if amount < 1:
             raise ValueError("Amount cannot be less than 1.")
@@ -207,12 +207,12 @@ class UNO_Game:
                 break
         self.round_skipped = False
 
-    def play_card(self, player: UNO_Deck.BasePlayer, selection: UNO_Deck.Card) -> None:
+    def play_card(self, player: UNO_Deck.Player, selection: UNO_Deck.Card) -> None:
         """Plays a card from a player's hand in selection."""
         if selection:
             self.check_for_action(player, selection)
 
-    def action_reverse(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def action_reverse(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Plays a reverse action and broadcasts the turn rotation."""
         self.discard_played_card(player, card)
         print(f"{player.user_name} played a reverse card.")
@@ -225,7 +225,7 @@ class UNO_Game:
         new_number_id = self.four_loopback(self.playing_player_number, 1)
         self.playing_player_number = new_number_id
 
-    def action_skip(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def action_skip(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Skips a players turn"""
         self.discard_played_card(player, card)
         new_number_id = self.four_loopback(self.playing_player_number, 1)
@@ -260,7 +260,7 @@ class UNO_Game:
         else:
             self.current_turn -= 1
 
-    def action_draw_two(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def action_draw_two(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Plays a plus two on the next player"""
         self.discard_played_card(player, card)
         new_number_id = self.four_loopback(self.playing_player_number, 1)
@@ -270,7 +270,7 @@ class UNO_Game:
         self.draw_card(target_player, 2)
         self.general_action_skip()
 
-    def action_draw_four_wild(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def action_draw_four_wild(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Plays a plus four on the next player, also skipping them"""
         new_number_id = self.four_loopback(self.playing_player_number, 1)
         target_player = self.return_assignment(new_number_id)
@@ -307,7 +307,7 @@ class UNO_Game:
             print(f"{player.user_name} picked {color}.")
         self.general_action_skip()
 
-    def action_wild(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def action_wild(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Plays a wild card for the player."""
         self.discard_played_card(player, card)
         current_turn = abs((self.current_turn - 1) % 4)
@@ -339,7 +339,7 @@ class UNO_Game:
             self.current_color = color
             print(f"{player.user_name} picked {color}.")
 
-    def play_regular_card(self, player: UNO_Deck.BasePlayer, card: UNO_Deck.Card) -> None:
+    def play_regular_card(self, player: UNO_Deck.Player, card: UNO_Deck.Card) -> None:
         """Plays a regular card for the player."""
         self.discard_played_card(player, card)
 
@@ -363,7 +363,7 @@ class UNO_Game:
             case "+2":
                 print_str = card.color.title() + " +2"
             case _:
-                print_str = card.color.title() + " " + card.value
+                print_str = card.color.title() + " " + str(card.value)
             
         print(f"Dealer drew a {print_str} card!")
         
