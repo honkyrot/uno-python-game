@@ -48,9 +48,11 @@ Use these formats to change the game and so on. PLEASE REMEMBER that this module
 selects the card to return and does not do any game mechanics what-so-ever.
 """
 
+import UNO_Deck_Module as deck
+
 
 class AI_Module:
-    def __init__(self, ai_id):
+    def __init__(self, ai_id: deck.Player):
         self.ai = ai_id
         self.ai_hand = ai_id.hand
         self.current_hand = []
@@ -63,12 +65,12 @@ class AI_Module:
 
         self.drew_card = False
 
-    def game_set_color(self, color, card_number):
+    def game_set_color(self, color: str, card_number: int) -> None:
         """Set current game color, dependent on other scripts."""
         self.current_color = color.lower()
         self.showing_number = card_number
 
-    def _card_actions(self):
+    def _card_actions(self) -> None:
         """Picks the card to play"""
         for grabbed_cards in self.ai_hand:
             self.current_hand.append({"color": grabbed_cards.color, "value": grabbed_cards.value})
@@ -116,7 +118,7 @@ class AI_Module:
             # print("RETURN -6- DEBUG")
             return self._get_same_number_card() or self.draw_card()
 
-    def _check_all_did_not_match(self):
+    def _check_all_did_not_match(self) -> bool:
         """Returns True if player does not have any color."""
         any_fail = True
         for key, data in self.color_check.items():
@@ -124,7 +126,7 @@ class AI_Module:
                 any_fail = False
         return any_fail
 
-    def _get_same_number_card(self):
+    def _get_same_number_card(self) -> dict or str:
         """Get a card that nots the same color but has the same number.
         NOTE: This must change the game color to the new card color."""
         for i, data in enumerate(self.current_hand):
@@ -135,12 +137,12 @@ class AI_Module:
         # print("RETURN _get_same_number_card -2- DEBUG")
         return "Draw card"
 
-    def draw_card(self):
+    def draw_card(self) -> str:
         """Draw a card from the deck."""
         self.drew_card = True
         return "Draw card"
 
-    def _get_random_card(self, color):
+    def _get_random_card(self, color: str) -> dict or str:
         """Get a random card, general gameplay"""
         for i, data in enumerate(self.current_hand):
             try:
@@ -154,7 +156,7 @@ class AI_Module:
         # print("RETURN _get_random_card -2- DEBUG")
         return self._get_same_number_card()
 
-    def _pick_action_card(self, color):
+    def _pick_action_card(self, color: str) -> dict or bool:
         """Select an action card"""
         for i, data in enumerate(self.current_hand):
             if data["value"] == "+2" and data["color"] == color:
@@ -165,14 +167,14 @@ class AI_Module:
                 return data
         return False
 
-    def _check_if_AI_has_color(self, color):
+    def _check_if_AI_has_color(self, color: str) -> bool:
         """Check if AI has matching color to the games color"""
         for key, data in self.color_check.items():
             if color == key and data:
                 return key
         return False
 
-    def _check_action_cards(self):
+    def _check_action_cards(self) -> None:
         """Check if AI has any action card in its hand"""
         for i, data in enumerate(self.current_hand):
             if data["value"] == "reverse":
@@ -182,19 +184,19 @@ class AI_Module:
             elif data["value"] == "+2":
                 self.action_type.update({"+2": True})
 
-    def _play_wild_plus_four(self):
+    def _play_wild_plus_four(self) -> dict:
         """Select a +4"""
         for i, data in enumerate(self.current_hand):
             if data["color"] == "wild" and data["value"] == "+4":
                 return data
 
-    def _play_wild(self):
+    def _play_wild(self) -> dict:
         """Select a  Wild Card"""
         for i, data in enumerate(self.current_hand):
             if data["color"] == "wild" and data["value"] == "wild":
                 return data
 
-    def make_choice(self):
+    def make_choice(self) -> dict or str:
         """ONLY Call this along with game_set_color to make the AI play a card"""
         card = self._card_actions()
         if card is None:

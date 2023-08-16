@@ -15,12 +15,12 @@ import UNO_Deck_Module as udm
 
 
 @pytest.fixture()
-def ai_module():
+def ai_module() -> AI_Module:
     """Fixture"""
     return AI_Module(udm.cpu1)
 
 
-def test_AI_always_select_plus_four_wild(ai_module):
+def test_AI_always_select_plus_four_wild(ai_module: AI_Module) -> None:
     """Always picks the +4 card with set hand."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
@@ -37,7 +37,7 @@ def test_AI_always_select_plus_four_wild(ai_module):
     assert selected_card["value"] == "+4"
 
 
-def test_AI_always_select_plus_4_wild_with_wild(ai_module):
+def test_AI_always_select_plus_4_wild_with_wild(ai_module: AI_Module) -> None:
     """Always picks the +4 card over the wild."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
@@ -54,7 +54,7 @@ def test_AI_always_select_plus_4_wild_with_wild(ai_module):
     assert selected_card["value"] == "+4"
 
 
-def test_AI_always_select_wild(ai_module):
+def test_AI_always_select_wild(ai_module: AI_Module) -> None:
     """Always picks the wild."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
@@ -71,7 +71,7 @@ def test_AI_always_select_wild(ai_module):
     assert selected_card["value"] == "wild"
 
 
-def test_AI_select_blue_over_wild(ai_module):
+def test_AI_select_blue_over_wild(ai_module: AI_Module) -> None:
     """Always picks the blue card over the wild."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
@@ -88,7 +88,7 @@ def test_AI_select_blue_over_wild(ai_module):
     assert selected_card["value"] == 4
 
 
-def test_AI_select_blue_plus_two(ai_module):
+def test_AI_select_blue_plus_two(ai_module: AI_Module) -> None:
     """Always picks the blue +2."""
     ai_module.current_color = "blue"  # Overwrite color
     ai_module.showing_number = 0
@@ -105,7 +105,7 @@ def test_AI_select_blue_plus_two(ai_module):
     assert selected_card["value"] == "+2"
 
 
-def test_AI_select_number_yellow_only(ai_module):
+def test_AI_select_number_yellow_only(ai_module: AI_Module) -> None:
     """Always picks the yellow 7 card."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 0
@@ -122,7 +122,7 @@ def test_AI_select_number_yellow_only(ai_module):
     assert selected_card["value"] == 7
 
 
-def test_AI_select_skip_yellow_only(ai_module):
+def test_AI_select_skip_yellow_only(ai_module: AI_Module) -> None:
     """Always picks the yellow skip card."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 0
@@ -139,7 +139,7 @@ def test_AI_select_skip_yellow_only(ai_module):
     assert selected_card["value"] == "skip"
 
 
-def test_AI_select_wild_plus_4_card_only(ai_module):
+def test_AI_select_wild_plus_4_card_only(ai_module: AI_Module) -> None:
     """Always picks the wild +4 card even with wilds and actions."""
     ai_module.current_color = "red"  # Overwrite color
     ai_module.showing_number = 0
@@ -156,7 +156,7 @@ def test_AI_select_wild_plus_4_card_only(ai_module):
     assert selected_card["value"] == "+4"
 
 
-def test_AI_draw_card(ai_module):
+def test_AI_draw_card(ai_module: AI_Module) -> None:
     """Draws a card. 3 Cards"""
     ai_module.current_color = "red"  # Overwrite color
     ai_module.showing_number = 0
@@ -168,7 +168,7 @@ def test_AI_draw_card(ai_module):
     assert selected_card == "Draw card"
 
 
-def test_AI_pick_same_number_different_color_card(ai_module):
+def test_AI_pick_same_number_different_color_card(ai_module: AI_Module) -> None:
     """Draws a card that's not the same color, BUT has the same number."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 4
@@ -181,7 +181,7 @@ def test_AI_pick_same_number_different_color_card(ai_module):
     assert selected_card["value"] == 4
 
 
-def test_AI_pick_plus_four_over_wild(ai_module):
+def test_AI_pick_plus_four_over_wild(ai_module: AI_Module) -> None:
     """Picks a +4 over 1 wild with a deck of all wilds."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 4
@@ -196,7 +196,7 @@ def test_AI_pick_plus_four_over_wild(ai_module):
     assert selected_card["value"] == "+4"
 
 
-def test_AI_pick_plus_four_over_wild_with_action(ai_module):
+def test_AI_pick_plus_four_over_wild_with_action(ai_module: AI_Module) -> None:
     """Picks a wild same color over a +4 with a deck of all wilds."""
     ai_module.current_color = "yellow"  # Overwrite color
     ai_module.showing_number = 4
@@ -214,7 +214,7 @@ def test_AI_pick_plus_four_over_wild_with_action(ai_module):
     assert selected_card["value"] == "skip"
 
 
-def test_AI_picks_plus_four_on_action_discard(ai_module):
+def test_AI_picks_plus_four_on_action_discard(ai_module: AI_Module) -> None:
     """Picks a +4 when there is an action card on the discard pile."""
     ai_module.current_color = "green"  # Overwrite color
     ai_module.showing_number = "skip"  # action card
@@ -226,7 +226,7 @@ def test_AI_picks_plus_four_on_action_discard(ai_module):
     assert selected_card["value"] == "+4"
 
 
-def test_AI_picks_color_card_on_action_discard(ai_module):
+def test_AI_picks_color_card_on_action_discard(ai_module: AI_Module) -> None:
     """Picks a +2 same-color action when there is an action card on the discard pile."""
     ai_module.current_color = "green"  # Overwrite color
     ai_module.showing_number = "skip"  # action card
@@ -238,7 +238,7 @@ def test_AI_picks_color_card_on_action_discard(ai_module):
     assert selected_card["value"] == "+2"
 
 
-def test_AI_picks_wild_over_same_number_card(ai_module):
+def test_AI_picks_wild_over_same_number_card(ai_module: AI_Module) -> None:
     """Picks a wild over same numbered card"""
     ai_module.current_color = "green"  # Overwrite color
     ai_module.showing_number = 5  # action card
@@ -254,19 +254,19 @@ def test_AI_picks_wild_over_same_number_card(ai_module):
 
 
 @pytest.fixture
-def deck_module():
+def deck_module() -> udm.UNO_Deck_Module:
     """Fixture for the deck module."""
     udm.deck.clear()
     return udm
 
 
-def test_deck_should_have_108_cards(deck_module):
+def test_deck_should_have_108_cards(deck_module: udm.UNO_Deck_Module) -> None:
     """The deck should have 108 cards."""
     deck_module.create_deck()
     assert len(deck_module.deck) == 108
 
 
-def test_deck_cpu_should_have_7_cards(deck_module):
+def test_deck_cpu_should_have_7_cards(deck_module: udm.UNO_Deck_Module) -> None:
     """CPU should have 7 cards."""
     deck_module.create_deck()
     local_cpu = udm.CPU1()
@@ -274,7 +274,7 @@ def test_deck_cpu_should_have_7_cards(deck_module):
     assert len(local_cpu.hand) == 7
 
 
-def test_deck_should_have_80_cards_after_dealing(deck_module):
+def test_deck_should_have_80_cards_after_dealing(deck_module: udm.UNO_Deck_Module) -> None:
     """The deck should have 80 cards after dealing."""
     deck_module.create_deck()
     local_cpu1 = udm.CPU1()
@@ -288,7 +288,7 @@ def test_deck_should_have_80_cards_after_dealing(deck_module):
     assert len(deck_module.deck) == 80
 
 
-def test_deck_pass_4_cards_to_cpu(deck_module):
+def test_deck_pass_4_cards_to_cpu(deck_module: udm.UNO_Deck_Module) -> None:
     """Pass 4 cards to CPU. Deck should have 97 (108-7-4) cards."""
     deck_module.create_deck()
     local_cpu = udm.CPU1()
@@ -298,7 +298,7 @@ def test_deck_pass_4_cards_to_cpu(deck_module):
     assert len(deck_module.deck) == 97
 
 
-def test_deck_pass_40_cards_to_cpu(deck_module):
+def test_deck_pass_40_cards_to_cpu(deck_module: udm.UNO_Deck_Module) -> None:
     """Pass 40 cards to CPU, large volume test. Deck should have 97 (108-7-40) cards."""
     deck_module.create_deck()
     local_cpu = udm.CPU1()
@@ -308,21 +308,21 @@ def test_deck_pass_40_cards_to_cpu(deck_module):
     assert len(deck_module.deck) == 61
 
 
-def test_deck_create_two_decks(deck_module):
+def test_deck_create_two_decks(deck_module: udm.UNO_Deck_Module) -> None:
     """Create 2 decks. Should have 216 cards."""
     deck_module.create_deck()
     deck_module.create_deck()
     assert len(deck_module.deck) == 216
 
 
-def test_deck_create_x10_decks(deck_module):
+def test_deck_create_x10_decks(deck_module: udm.UNO_Deck_Module) -> None:
     """Create x10 decks. Should have 1080 cards."""
     for i in range(10):
         deck_module.create_deck()
     assert len(deck_module.deck) == 1080
 
 
-def test_deck_create_x100_decks(deck_module):
+def test_deck_create_x100_decks(deck_module: udm.UNO_Deck_Module) -> None:
     """Create x100 decks. Should have 10800 cards."""
     for i in range(100):
         deck_module.create_deck()
@@ -333,13 +333,13 @@ def test_deck_create_x100_decks(deck_module):
 
 
 @pytest.fixture
-def core_module():
+def core_module() -> UNO_Game:
     """Fixture for the core module."""
     udm.deck.clear()
     return UNO_Game()
 
 
-def test_core_start_up_check(core_module):
+def test_core_start_up_check(core_module: UNO_Game) -> None:
     """Check all variables are set to default values."""
     assert core_module.overall_turn == 0
     assert core_module.current_turn == 0
@@ -349,7 +349,7 @@ def test_core_start_up_check(core_module):
     assert core_module.winner is None
 
 
-def test_core_active_variables_check(core_module):
+def test_core_active_variables_check(core_module: UNO_Game) -> None:
     """Check all hot variables are set to default values."""
     assert core_module.playing_player == core_module.player0
     assert core_module.playing_player_number == 0
@@ -359,14 +359,14 @@ def test_core_active_variables_check(core_module):
     assert core_module.round_skipped is False
 
 
-def test_core_loopback_clockwise(core_module):
+def test_core_loopback_clockwise(core_module: UNO_Game) -> None:
     """Test the loopback on core module, should go from 3 to 0, incrementing by 1"""
     core_module.playing_player_number = 3
     new_id = core_module.four_loopback(core_module.playing_player_number, 1)
     assert new_id == 0
 
 
-def test_core_loopback_counter_clockwise(core_module):
+def test_core_loopback_counter_clockwise(core_module: UNO_Game) -> None:
     """Test the loopback on core module, should go from 3 to 2, decrementing by 1"""
     core_module.playing_player_number = 3
     core_module.clockwise = False
@@ -374,7 +374,7 @@ def test_core_loopback_counter_clockwise(core_module):
     assert new_id == 2
 
 
-def test_core_loopback_counter_clockwise_0_to_3(core_module):
+def test_core_loopback_counter_clockwise_0_to_3(core_module: UNO_Game) -> None:
     """Test the loopback on core module, should go from 0 to 3, decrementing by 1"""
     core_module.playing_player_number = 0
     core_module.clockwise = False
@@ -382,14 +382,14 @@ def test_core_loopback_counter_clockwise_0_to_3(core_module):
     assert new_id == 3
 
 
-def test_core_return_assignment_on_cpu1(core_module):
+def test_core_return_assignment_on_cpu1(core_module: UNO_Game) -> None:
     """Test the return assignment on core module, should return CPU1"""
     core_module.playing_player_number = 1
     new_player = core_module.return_assignment(core_module.playing_player_number)
     assert new_player == core_module.player1
 
 
-def test_core_return_assignment_cpu2_loopback(core_module):
+def test_core_return_assignment_cpu2_loopback(core_module: UNO_Game) -> None:
     """Test the return assignment on core module while using the loopback function, should return CPU2"""
     core_module.playing_player_number = 1
     new_id = core_module.four_loopback(core_module.playing_player_number, 1)
@@ -397,7 +397,7 @@ def test_core_return_assignment_cpu2_loopback(core_module):
     assert new_player == core_module.player2
 
 
-def test_core_if_card_can_be_played_card_true(core_module):
+def test_core_if_card_can_be_played_card_true(core_module: UNO_Game) -> None:
     """Checks if a card can be played. Should return True"""
     synthetic_card = udm.Card("blue", 5)
     core_module.current_card = synthetic_card
@@ -405,7 +405,7 @@ def test_core_if_card_can_be_played_card_true(core_module):
     assert core_module.check_if_card_can_be_played(matching_card) is True
 
 
-def test_core_if_card_can_be_played_card_false(core_module):
+def test_core_if_card_can_be_played_card_false(core_module: UNO_Game) -> None:
     """Checks if a card can be played. Should return False"""
     synthetic_card = udm.Card("blue", 2)
     core_module.current_card = synthetic_card
@@ -413,7 +413,7 @@ def test_core_if_card_can_be_played_card_false(core_module):
     assert core_module.check_if_card_can_be_played(matching_card) is False
 
 
-def test_core_card_can_be_played_card_true_wild(core_module):
+def test_core_card_can_be_played_card_true_wild(core_module: UNO_Game) -> None:
     """Checks if a card can be played. Wilds should ALWAYS return True"""
     synthetic_card = udm.Card("red", "+2")
     core_module.current_card = synthetic_card
@@ -421,39 +421,39 @@ def test_core_card_can_be_played_card_true_wild(core_module):
     assert core_module.check_if_card_can_be_played(matching_card) is True
 
 
-def test_core_next_turn(core_module):
+def test_core_next_turn(core_module: UNO_Game) -> None:
     """Test if the next turn is correctly assigned."""
     core_module.playing_player_number = 0
     core_module.next_turn()
     assert core_module.playing_player_number == 1
 
 
-def test_core_draw_cards_cpu1(core_module):
+def test_core_draw_cards_cpu1(core_module: UNO_Game) -> None:
     """Draw cards on UNO_Core.py, CPU1. 4 Cards to draw, should have 11 in hand."""
     core_module.playing_player = core_module.player1
     core_module.draw_card(core_module.player1, 4)
     assert len(core_module.playing_player.hand) == 11
 
 
-def test_core_draw_cards_cpu1_negative(core_module):
+def test_core_draw_cards_cpu1_negative(core_module: UNO_Game) -> None:
     """Draw negative amount of cards, should raise ValueError."""
     with pytest.raises(ValueError):
         core_module.draw_card(core_module.player1, -1)
 
 
-def test_core_draw_cards_cpu1_zero(core_module):
+def test_core_draw_cards_cpu1_zero(core_module: UNO_Game) -> None:
     """Draw no cards (somehow), should raise ValueError."""
     with pytest.raises(ValueError):
         core_module.draw_card(core_module.player1, 0)
 
 
-def test_core_draw_cards_cpu1_string(core_module):
+def test_core_draw_cards_cpu1_string(core_module: UNO_Game) -> None:
     """Draw a 'string', should raise TypeError."""
     with pytest.raises(TypeError):
         core_module.draw_card(core_module.player1, "string")
 
 
-def test_core_play_card_cpu1(core_module):
+def test_core_play_card_cpu1(core_module: UNO_Game) -> None:
     """Play a card with same functions from gameplay on CPU1, hand should have 6 cards
     after they play a card from their hand, which should start with 7."""
     core_module.playing_player = core_module.player1
@@ -461,7 +461,7 @@ def test_core_play_card_cpu1(core_module):
     assert len(core_module.playing_player.hand) == 6
 
 
-def test_core_new_deck(core_module):
+def test_core_new_deck(core_module: UNO_Game) -> None:
     """New deck is created with this function however
     this calls from the UNO_Core.py script
     after the cards are played it will
