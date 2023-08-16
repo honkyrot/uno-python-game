@@ -4,7 +4,7 @@ import time
 timeout = 3
 
 
-def call_uno_timer():
+def call_uno_timer() -> bool:
     """Call to start uno timer and return True if user says uno, else return False"""
     t = Timer(timeout, print, ["You didn't call Uno! Draw 2. Enter to continue..."])
     t.start()
